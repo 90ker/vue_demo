@@ -18,8 +18,8 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item class="btns">
-                        <el-button type="primary" @click="this.login">登录</el-button>
-                        <el-button type="info" @click="this.reset">注册</el-button>
+                        <el-button type="primary" @click="login">登录</el-button>
+                        <el-button type="info" @click="reset">注册</el-button>
                     </el-form-item>
                 </el-form>
         </div>
@@ -49,7 +49,7 @@ export default {
         login(){
             this.$refs.formRef.validate(async (then)=>{
                 if(!then) return;
-                let {data:{meta:{status},token}}= await this.$http.post("login",this.form)
+                let {data:{meta:{status},data:{token}}} = await this.$http.post("login",this.form)
                 if (status!=200) return this.$message.error("失败咯")
                 this.$message.success("请进")
                 window.sessionStorage.setItem("token",token)
